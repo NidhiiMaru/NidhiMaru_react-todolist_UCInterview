@@ -13,23 +13,23 @@ import {
 
 function App() {
   let initTodo;
-  if(localStorage.getItem("todos")===null){ 
-     initTodo=[];
+  if(localStorage.getItem("todos")===null){ //Checks if any todos were saved in the browser before.
+     initTodo=[]; //If not, it starts with an empty list.
   }
-  else{
+  else{  //If yes, it loads them from the browser's memory (called localStorage
    initTodo=JSON.parse(localStorage.getItem("todos"));
   }
 
   
-    const onDelete=(todo)=>{
-      console.log("i am onDelete of todo",todo);
-      setTodos(todos.filter((e)=>{
+    const onDelete=(todo)=>{  //todos is your current array of todo items (from useState).
+      console.log("i am onDelete of todo",todo);  //n each .map() loop, the current item is passed as the variable todo
+      setTodos(todos.filter((e)=>{  //.filter(...) creates a new array, keeping only those items that are NOT equal to todo.
         return e!==todo;
       }))
       console.log("deleted",todos);
   
     } 
-    const addTodo=(title,desc)=>{
+    const addTodo=(title,desc)=>{ // left from here*****************************
       console.log("i am adding todo",title,desc);
       let sno;
       if(todos.length===0){
@@ -64,16 +64,16 @@ function App() {
     <>
    <Router>
       <Header title="My Todos List" searchBar={false} />
-      <Routes>
+      <Routes> //switch
         <Route
-   path="/" element={
+   path="/" element={ //if at end of link / show below things and if /about goto about page
             <>
               <AddTodo addTodo={addTodo} />
               <Todos todos={todos} onDelete={onDelete} onToggleComplete={onToggleComplete} />
             </>
           }
-        />
-        <Route  path="/about" element={<About />} />
+        /> 
+        <Route  path="/about" element={<About />} />    
       </Routes>
       <Footer />
     </Router>
